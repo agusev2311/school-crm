@@ -24,6 +24,7 @@ class Config:
     MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@lk.silaeder.ru')
     CELERY_BACKEND = os.getenv('CELERY_BACKEND', "redis://localhost:6379/1")
     CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', "redis://localhost:6379/0")
+    RATELIMIT_STORAGE_URI = os.getenv('RATELIMIT_STORAGE_URI', 'redis://localhost:6379/2')
 
 class DevelopmentConfig(Config):
     """Development configuration"""
@@ -38,8 +39,9 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     """Production configuration"""
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
-    CELERY_BACKEND = os.getenv('CELERY_BACKEND', "redis://backend:6379/1")
-    CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', "redis://backend:6379/0")
+    CELERY_BACKEND = os.getenv('CELERY_BACKEND', "redis://redis:6379/1")
+    CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', "redis://redis:6379/0")
+    RATELIMIT_STORAGE_URI = os.getenv('RATELIMIT_STORAGE_URI', 'redis://redis:6379/2')
     DEBUG = False
     BASE_URL = os.getenv('APP_URL', "https://lk.silaeder.ru")
 
